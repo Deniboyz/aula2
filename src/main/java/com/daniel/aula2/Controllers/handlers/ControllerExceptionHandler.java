@@ -3,6 +3,7 @@ package com.daniel.aula2.Controllers.handlers;
 import com.daniel.aula2.dto.CustomError;
 import com.daniel.aula2.dto.ValidationError;
 import com.daniel.aula2.services.exceptions.DatabaseException;
+import com.daniel.aula2.services.exceptions.ForbiddenException;
 import com.daniel.aula2.services.exceptions.ResourceNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -40,6 +41,13 @@ public class ControllerExceptionHandler {
             err.addError(f.getField(), f.getDefaultMessage());
         }
 
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<CustomError> forbidden(ForbiddenException e, HttpServletRequest request){
+        HttpStatus status = HttpStatus.FORBIDDEN;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
     }
 

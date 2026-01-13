@@ -1,6 +1,7 @@
 package com.daniel.aula2.Controllers;
 
 import com.daniel.aula2.dto.ProductDTO;
+import com.daniel.aula2.dto.ProductMinDTO;
 import com.daniel.aula2.entities.Product;
 import com.daniel.aula2.services.ProductService;
 import jakarta.validation.Valid;
@@ -33,9 +34,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
+    public ResponseEntity<Page<ProductMinDTO>> findAll(@RequestParam(name = "name", defaultValue = "") String name, Pageable pageable) {
 
-        Page<ProductDTO> result =  productService.findAll(name, pageable);
+        Page<ProductMinDTO> result =  productService.findAll(name, pageable);
 
         return ResponseEntity.ok().body(result);
 

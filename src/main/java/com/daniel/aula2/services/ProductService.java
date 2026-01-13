@@ -1,6 +1,7 @@
 package com.daniel.aula2.services;
 
 import com.daniel.aula2.dto.ProductDTO;
+import com.daniel.aula2.dto.ProductMinDTO;
 import com.daniel.aula2.entities.Product;
 import com.daniel.aula2.repositories.ProductRepository;
 import com.daniel.aula2.services.exceptions.DatabaseException;
@@ -34,11 +35,11 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(String name, Pageable pageable){
+    public Page<ProductMinDTO> findAll(String name, Pageable pageable){
 
         Page<Product> result = productRepository.searchByName(name, pageable);
 
-        return result.map(ProductDTO::new);
+        return result.map(ProductMinDTO::new);
 
     }
 

@@ -1,7 +1,9 @@
 package com.daniel.aula2.services;
 
+import com.daniel.aula2.dto.CategoryDTO;
 import com.daniel.aula2.dto.ProductDTO;
 import com.daniel.aula2.dto.ProductMinDTO;
+import com.daniel.aula2.entities.Category;
 import com.daniel.aula2.entities.Product;
 import com.daniel.aula2.repositories.ProductRepository;
 import com.daniel.aula2.services.exceptions.DatabaseException;
@@ -97,6 +99,12 @@ public class ProductService {
         entity.setdescription(productDTO.getDescription());
         entity.setPrice(productDTO.getPrice());
         entity.setImgUrl(productDTO.getImgUrl());
+        entity.getCategories().clear();
+        for (CategoryDTO categoryDTO : productDTO.getCategories()){
+            Category cat = new Category();
+            cat.setId(categoryDTO.getId());
+            entity.getCategories().add(cat);
+        }
     }
 
 }
